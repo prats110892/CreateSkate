@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         mSensorManagerUtil.registerSensorsAndEventListeners();
-        mSoundPlayerUtil.initSoundPlayer(this);
     }
 
     @Override
@@ -56,7 +55,7 @@ public class MainActivity extends Activity {
         mStatusText = (TextView) findViewById(R.id.cs_status_text);
 
         //Initializing the SoundPlayerUtil
-        mSoundPlayerUtil = SoundPlayerUtil.getInstance();
+        mSoundPlayerUtil = SoundPlayerUtil.getInstance(this);
 
         //Initializing the SensorManagerUtil
         mSensorManagerUtil = SensorManagerUtil.getInstance(this);

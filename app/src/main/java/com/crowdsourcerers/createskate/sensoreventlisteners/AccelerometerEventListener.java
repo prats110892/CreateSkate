@@ -21,7 +21,7 @@ public class AccelerometerEventListener implements SensorEventListener {
     private MainActivity mUIContext;
 
     public AccelerometerEventListener(MainActivity activity) {
-        mSoundPlayerUtil = SoundPlayerUtil.getInstance();
+        mSoundPlayerUtil = SoundPlayerUtil.getInstance(activity);
         mUIContext = activity;
     }
 
@@ -29,7 +29,7 @@ public class AccelerometerEventListener implements SensorEventListener {
     public void onSensorChanged(SensorEvent event) {
         if (isMoving(event)) {
             mUIContext.updateText(R.string.moving);
-            mSoundPlayerUtil.playSound();
+            mSoundPlayerUtil.playSound(SoundPlayerUtil.MOVING);
         } else {
             mSoundPlayerUtil.pauseSound();
             mUIContext.updateText(R.string.stopped);

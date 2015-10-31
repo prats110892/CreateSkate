@@ -5,6 +5,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 
 import com.crowdsourcerers.createskate.sensoreventlisteners.AccelerometerEventListener;
+import com.crowdsourcerers.createskate.sensoreventlisteners.PositionEventListener;
 import com.crowdsourcerers.createskate.ui.MainActivity;
 
 /**
@@ -17,6 +18,7 @@ public class SensorManagerUtil {
     private SensorManager mSensorManager;
 
     private AccelerometerEventListener mAccelerometerEventListener;
+    private PositionEventListener mPositionEventListener;
 
 
     /**
@@ -32,6 +34,9 @@ public class SensorManagerUtil {
 
             mSensorManagerUtil.mAccelerometerEventListener = new
                     AccelerometerEventListener((MainActivity) context);
+
+            mSensorManagerUtil.mPositionEventListener = new
+                    PositionEventListener((MainActivity) context);
         }
 
         return mSensorManagerUtil;
@@ -44,6 +49,10 @@ public class SensorManagerUtil {
         mSensorManager.registerListener(mAccelerometerEventListener,
                 mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
                 SensorManager.SENSOR_DELAY_NORMAL);
+
+        mSensorManager.registerListener(mPositionEventListener,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION),
+                SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     /**
@@ -51,6 +60,7 @@ public class SensorManagerUtil {
      */
     public void unregisterSensorsAndEventListeners() {
         mSensorManager.unregisterListener(mAccelerometerEventListener);
+        mSensorManager.unregisterListener(mPositionEventListener);
     }
 
     private SensorManagerUtil() {}

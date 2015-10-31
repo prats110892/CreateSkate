@@ -12,36 +12,62 @@ import com.crowdsourcerers.createskate.R;
 public class SoundPlayerUtil {
     private static SoundPlayerUtil mSoundPlayerUtil;
 
-    MediaPlayer mBaseTrack, mFirstTrack, mSecondTrack;
+    public static final int MOVING = 0x1000;
+    public static final int OLLIE = 0x1001;
+
+    private Context mContext;
+    private MediaPlayer mPlayer;
+
+    private int mTricksPerformed = 0;
 
     /**
      * a method that returns the reference to the singleton object for SoundPlayer Util
      * @return - the reference to the SoundPlayerUtil singleton object
      */
-    public static SoundPlayerUtil getInstance() {
+    public static SoundPlayerUtil getInstance(Context context) {
         if (mSoundPlayerUtil == null) {
             mSoundPlayerUtil = new SoundPlayerUtil();
+            mSoundPlayerUtil.mContext = context;
         }
 
         return mSoundPlayerUtil;
     }
 
     /**
-     * a method to initialize the media players in the SoundPlayerUtil
-     * @param context - the context in which the media players will be instantiated
-     */
-    public void initSoundPlayer(Context context) {
-        mBaseTrack = MediaPlayer.create(context, R.raw.from_eden);
-        mBaseTrack.setLooping(true);
-    }
-
-
-    /**
      * a method to play the sound. Track opening logic included here
+     * @param mode - Mode for which the play sound was called
      */
-    public void playSound() {
-        if (!mBaseTrack.isPlaying()) {
-            mBaseTrack.start();
+    public void playSound(int mode) {
+        if (mTricksPerformed == 0) {
+            mTricksPerformed = mode == MOVING ? 1 : 0;
+        } else {
+            if (mode != MOVING) {
+                mTricksPerformed++;
+            } else {
+                return;
+            }
+        }
+
+        if (mTricksPerformed > 2) {
+            mTricksPerformed = 2;
+        }
+
+        switch (mTricksPerformed) {
+            case 1:
+                if (mPlayer != null) {
+                    mPlayer.release();
+                }
+                mPlayer = MediaPlayer.create(mContext, R.raw.from_eden);
+                mPlayer.setLooping(true);
+                mPlayer.start();
+                break;
+            case 2:
+                int seekToPos = mPlayer.getCurrentPosition();
+                mPlayer.release();
+                mPlayer = MediaPlayer.create(mContext, R.raw.take_me_to_church);
+                mPlayer.setLooping(true);
+                mPlayer.seekTo(seekToPos);
+                mPlayer.start();
         }
     }
 
@@ -50,8 +76,9 @@ public class SoundPlayerUtil {
      * a method to pause the tracks currently playing
      */
     public void pauseSound() {
-        if (mBaseTrack.isPlaying()) {
-            mBaseTrack.pause();
+        if (mPlayer!= null && mPlayer.isPlaying()) {
+            mPlayer.pause();
+            mTricksPerformed = 0;
         }
     }
 
@@ -59,8 +86,10 @@ public class SoundPlayerUtil {
      * a way to reset and release all media players
      */
     public void releaseSoundPlayers() {
-        mBaseTrack.stop();
-        mBaseTrack.release();
+        mTricksPerformed = 0;
+        mPlayer.stop();
+        mPlayer.release();
+        mPlayer = null;
     }
 
     protected SoundPlayerUtil() {}

@@ -3,5 +3,6 @@
     <string name="start_skating">Start skating!</string>
     <string name="moving">Moving</string>
     <string name="stopped">Stopped</string>
-    <string name="ollie_performed">Ollie Performed</string>
+    <string name="ollie_performed">Ollie Performed!</string>
+    <string name="kickturn_performed">KickTurn Performed!</string>
 </resources>

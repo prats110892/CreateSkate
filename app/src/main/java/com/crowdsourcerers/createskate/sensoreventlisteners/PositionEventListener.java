@@ -19,7 +19,7 @@ import java.util.LinkedList;
  */
 public class PositionEventListener implements SensorEventListener {
     public static final String TAG = PositionEventListener.class.getSimpleName();
-    private static final float THRESHOLD = 3f;
+    private static final float THRESHOLD = 6f;
 
     private MainActivity mUIContext;
     private SoundPlayerUtil mSoundPlayerUtil;

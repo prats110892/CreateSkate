@@ -14,6 +14,7 @@ public class SoundPlayerUtil {
 
     public static final int MOVING = 0x1000;
     public static final int OLLIE = 0x1001;
+    public static final int KICKTURN = 0x1002;
 
     private Context mContext;
     private MediaPlayer mPlayer;
@@ -48,8 +49,8 @@ public class SoundPlayerUtil {
             }
         }
 
-        if (mTricksPerformed > 2) {
-            mTricksPerformed = 2;
+        if (mTricksPerformed > 3) {
+            mTricksPerformed = 3;
         }
 
         switch (mTricksPerformed) {
@@ -68,6 +69,17 @@ public class SoundPlayerUtil {
                 mPlayer.setLooping(true);
                 mPlayer.seekTo(seekToPos);
                 mPlayer.start();
+                break;
+            case 3:
+                int seekToPos1 = mPlayer.getCurrentPosition();
+                mPlayer.release();
+                mPlayer = MediaPlayer.create(mContext, R.raw.someone_new);
+                mPlayer.setLooping(true);
+                mPlayer.seekTo(seekToPos1);
+                mPlayer.start();
+                break;
+            default:
+                break;
         }
     }
 

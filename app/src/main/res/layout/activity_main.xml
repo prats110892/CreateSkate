@@ -14,7 +14,7 @@
         android:textSize="@dimen/d_28sp"
         android:lineSpacingExtra="@dimen/d_2dp"
         android:textStyle="bold"
-        android:text="@string/start_skating"/>
+        android:text="@string/kickturn_performed"/>
 
 
 </LinearLayout>

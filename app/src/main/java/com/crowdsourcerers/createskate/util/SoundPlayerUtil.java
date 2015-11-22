@@ -58,14 +58,14 @@ public class SoundPlayerUtil {
                 if (mPlayer != null) {
                     mPlayer.release();
                 }
-                mPlayer = MediaPlayer.create(mContext, R.raw.base_track);
+                mPlayer = MediaPlayer.create(mContext, R.raw.drums);
                 mPlayer.setLooping(true);
                 mPlayer.start();
                 break;
             case 2:
                 int seekToPos = mPlayer.getCurrentPosition();
                 mPlayer.release();
-                mPlayer = MediaPlayer.create(mContext, R.raw.track_1);
+                mPlayer = MediaPlayer.create(mContext, R.raw.drums_guitar);
                 mPlayer.setLooping(true);
                 mPlayer.seekTo(seekToPos);
                 mPlayer.start();
@@ -73,7 +73,7 @@ public class SoundPlayerUtil {
             case 3:
                 int seekToPos1 = mPlayer.getCurrentPosition();
                 mPlayer.release();
-                mPlayer = MediaPlayer.create(mContext, R.raw.track_2);
+                mPlayer = MediaPlayer.create(mContext, R.raw.drums_guitar_vocals);
                 mPlayer.setLooping(true);
                 mPlayer.seekTo(seekToPos1);
                 mPlayer.start();
